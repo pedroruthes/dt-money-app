@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { SystemBars } from "react-native-edge-to-edge";
 
