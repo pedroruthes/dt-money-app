@@ -1,12 +1,17 @@
 import NavigationRoutes from "@/routes";
+import { AuthContextProvider } from "@/context/auth.context";
+import { SnackbarContextProvider } from "@/context/snackbar.context";
+import { Snackbar } from "@/components/Snackbar";
 
 import "./src/styles/global.css";
-import { AuthContextProvider } from "@/context/auth.context";
 
 export default function App() {
   return (
-    <AuthContextProvider>
-      <NavigationRoutes />
-    </AuthContextProvider>
+    <SnackbarContextProvider>
+      <AuthContextProvider>
+        <NavigationRoutes />
+        <Snackbar />
+      </AuthContextProvider>
+    </SnackbarContextProvider>
   );
 }
