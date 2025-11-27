@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 import clsx from "clsx";
+import { ErrorMessage } from "../ErrorMessage";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "@/shared/colors";
@@ -41,7 +42,7 @@ export const AppInput = <T extends FieldValues>({
     <Controller
       control={control}
       name={name}
-      render={({ field: { onChange, value } }) => {
+      render={({ field: { onChange, value }, fieldState: { error } }) => {
         return (
           <View className="w-full mt-4">
             {label && (
@@ -88,6 +89,7 @@ export const AppInput = <T extends FieldValues>({
                 </TouchableOpacity>
               )}
             </TouchableOpacity>
+            {error && <ErrorMessage>{error.message}</ErrorMessage>}
           </View>
         );
       }}
