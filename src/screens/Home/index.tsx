@@ -1,9 +1,10 @@
 import { useAuthContext } from "@/context/auth.context";
 import { useEffect } from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { AppHeader } from "@/components/AppHeader";
+import { ListHeader } from "./ListHeader";
+
 import { useTransactionContext } from "@/context/transaction.context";
 import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
 
@@ -27,12 +28,12 @@ export const Home = () => {
   }, []);
 
   return (
-    <SafeAreaView className="flex-1 bg-background-primary">
-      <AppHeader />
-      <Text>HomeScreen</Text>
-      <TouchableOpacity onPress={handleLogout}>
-        <Text>Sair</Text>
-      </TouchableOpacity>
+    <SafeAreaView className="flex-1 bg-background-secondary">
+      <FlatList
+        data={[]}
+        renderItem={() => <></>}
+        ListHeaderComponent={<ListHeader />}
+      />
     </SafeAreaView>
   );
 };
