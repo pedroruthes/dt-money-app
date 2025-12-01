@@ -4,10 +4,11 @@ import CurrencyInput from "react-native-currency-input";
 
 import { CreateTransactionInterface } from "@/shared/interfaces/https/create-transaction-request";
 import { useBottomSheetContext } from "@/context/bottomsheet.context";
+import { TransactionTypeSelector } from "../SelectType";
+import { SelectCategoryModal } from "../SelectCategoryModal";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "@/shared/colors";
-import { TransactionTypeSelector } from "../SelectType";
 
 export const NewTransaction = () => {
   const { closeBottomSheet } = useBottomSheetContext();
@@ -54,6 +55,13 @@ export const NewTransaction = () => {
           minValue={0}
           onChangeValue={(value) => setTransactionData("value", value ?? 0)}
           value={transaction.value}
+        />
+
+        <SelectCategoryModal
+          selectedCategory={transaction.categoryId}
+          onSelect={(categoryId) =>
+            setTransactionData("categoryId", categoryId)
+          }
         />
 
         <TransactionTypeSelector
