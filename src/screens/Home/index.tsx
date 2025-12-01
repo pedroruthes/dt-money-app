@@ -10,7 +10,7 @@ import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
 
 export const Home = () => {
   const { handleLogout } = useAuthContext();
-  const { fetchCategories } = useTransactionContext();
+  const { fetchCategories, fetchTransactions } = useTransactionContext();
   const { handleError } = useErrorHandler();
 
   const handleFetchCategories = async () => {
@@ -24,6 +24,7 @@ export const Home = () => {
   useEffect(() => {
     (async () => {
       await handleFetchCategories();
+      await fetchTransactions();
     })();
   }, []);
 
