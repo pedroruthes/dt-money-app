@@ -7,11 +7,14 @@ import {
 } from "react";
 
 import { TransactionCategory } from "@/shared/interfaces/https/transaction-category-response";
-import * as transactionServices from "@/shared/services/dt-money/transaction.service";
+import { CreateTransactionInterface } from "@/shared/interfaces/https/create-transaction-request";
+
+import * as transactionService from "@/shared/services/dt-money/transaction.service";
 
 export type TransactionContextType = {
   fetchCategories: () => Promise<void>;
   categories: TransactionCategory[];
+  createTransaction: (transaction: CreateTransactionInterface) => Promise<void>;
 };
 
 export const TransactionContext = createContext<TransactionContextType>(
@@ -25,12 +28,18 @@ export const TransactionContextProvider: FC<PropsWithChildren> = ({
 
   const fetchCategories = async () => {
     const categoriesResponse =
-      await transactionServices.getTransactionCategories();
+      await transactionService.getTransactionCategories();
     setCategories(categoriesResponse);
   };
 
+  const createTransaction = async (transaction: CreateTransactionInterface) => {
+    await transactionService.createTransaction(transaction);
+  };
+
   return (
-    <TransactionContext.Provider value={{ categories, fetchCategories }}>
+    <TransactionContext.Provider
+      value={{ categories, fetchCategories, createTransaction }}
+    >
       {children}
     </TransactionContext.Provider>
   );
