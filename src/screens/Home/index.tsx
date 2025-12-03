@@ -17,6 +17,7 @@ export const Home = () => {
     transactions,
     refreshTransactions,
     loading,
+    loadMoreTransactions,
   } = useTransactionContext();
   const { handleError } = useErrorHandler();
 
@@ -30,7 +31,10 @@ export const Home = () => {
 
   useEffect(() => {
     (async () => {
-      await Promise.all([handleFetchCategories(), fetchTransactions()]);
+      await Promise.all([
+        handleFetchCategories(),
+        fetchTransactions({ page: 1 }),
+      ]);
     })();
   }, []);
 
@@ -42,6 +46,8 @@ export const Home = () => {
         renderItem={({ item }) => <TransactionCard transaction={item} />}
         keyExtractor={({ id }) => `transaction-${id}`}
         ListHeaderComponent={<ListHeader />}
+        onEndReached={loadMoreTransactions}
+        onEndReachedThreshold={0.5}
         refreshControl={
           <RefreshControl
             refreshing={loading}
