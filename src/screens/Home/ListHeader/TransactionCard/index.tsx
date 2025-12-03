@@ -2,11 +2,13 @@ import { FC } from "react";
 import { Text, View } from "react-native";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import clsx from "clsx";
 
 import { TransactionTypes } from "@/shared/enums/transaction-types";
 import { useTransactionContext } from "@/context/transaction.context";
 import { ICONS } from "./strategies/icon-strategy";
 import { CARD_DATA } from "./strategies/card-data-strategy";
+import { moneyMapper } from "@/shared/utils/money-mapper";
 
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -29,16 +31,19 @@ export const TransactionCard: FC<Props> = ({ amount, type }) => {
 
   return (
     <View
-      className={`bg-${cardData.bgColor} min-w-[280] rounded-[6] px-8 py-6 justify-between mr-6`}
+      className={clsx(
+        `bg-${cardData.bgColor} min-w-[280] rounded-[6] px-8 py-6 justify-between mr-6`,
+        type === "total" && "mr-12"
+      )}
     >
-      <View className="flex-row justify-between items-center mb-1">
+      <View className="flex-row justify-between items-center">
         <Text className="text-white text-base">{cardData.label}</Text>
         <MaterialIcons name={iconData.name} color={iconData.color} size={26} />
       </View>
 
       <View>
         <Text className="text-2xl text-gray-400 font-bold">
-          R$ {amount.toFixed(2).replace(".", ",")}
+          R$ {moneyMapper(amount)}
         </Text>
 
         {type !== "total" && (
