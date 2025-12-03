@@ -3,6 +3,7 @@ import { Pressable, View } from "react-native";
 
 import { Transaction } from "@/shared/interfaces/transaction";
 import { useBottomSheetContext } from "@/context/bottomsheet.context";
+import { EditTransactionForm } from "./EditTransactionForm";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "@/shared/colors";
@@ -17,7 +18,7 @@ export const LeftAction: FC<Params> = ({ transaction }) => {
   return (
     <Pressable
       onPress={() => {
-        openBottomSheet(<></>, 1);
+        openBottomSheet(<EditTransactionForm transaction={transaction} />, 0);
       }}
     >
       <View className="h-[140] bg-accent-blue w-[80] rounded-l-md items-center justify-center">
