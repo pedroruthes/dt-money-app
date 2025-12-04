@@ -10,12 +10,15 @@ type AppButtonMode = "fill" | "outline";
 interface AppButtonParams extends TouchableOpacityProps {
   mode?: AppButtonMode;
   iconName?: keyof typeof MaterialIcons.glyphMap;
+  widthFull?: boolean;
 }
 
 export const AppButton: FC<PropsWithChildren<AppButtonParams>> = ({
   children,
   mode = "fill",
   iconName,
+  widthFull = true,
+  className,
   ...rest
 }) => {
   const isFill = mode === "fill";
@@ -23,7 +26,9 @@ export const AppButton: FC<PropsWithChildren<AppButtonParams>> = ({
   return (
     <TouchableOpacity
       className={clsx(
-        "w-full rounded-xl px-5 flex-row items-center h-button",
+        widthFull && "w-full",
+        className,
+        "rounded-xl px-5 flex-row items-center h-button",
         iconName ? "justify-between" : "justify-center",
         {
           "bg-accent-brand": isFill,
